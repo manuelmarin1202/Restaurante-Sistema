@@ -162,34 +162,36 @@ class _FormularioProductoScreenState extends ConsumerState<FormularioProductoScr
             const SizedBox(height: 15),
             
             // --- NUEVOS DROPDOWNS PARA CONFIGURAR MENU ---
-            Row(
-              children: [
-                Expanded(
-                  child: DropdownButtonFormField<String>(
-                    value: _tipoCarta,
-                    decoration: const InputDecoration(labelText: 'Turno / Carta', border: OutlineInputBorder()),
-                    items: const [
-                      DropdownMenuItem(value: 'AMBOS', child: Text('Todo el día')),
-                      DropdownMenuItem(value: 'MENU', child: Text('Solo Menú (Día)')),
-                      DropdownMenuItem(value: 'RESTOBAR', child: Text('Restobar (Noche)')),
-                    ],
-                    onChanged: (val) => setState(() => _tipoCarta = val!),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: DropdownButtonFormField<String>(
-                    value: _subtipo,
-                    decoration: const InputDecoration(labelText: 'Tipo de Plato', border: OutlineInputBorder()),
-                    items: const [
-                      DropdownMenuItem(value: 'CARTA', child: Text('Plato Normal')),
-                      DropdownMenuItem(value: 'ENTRADA', child: Text('Entrada (Menú)')),
-                      DropdownMenuItem(value: 'SEGUNDO', child: Text('Segundo (Menú)')),
-                    ],
-                    onChanged: (val) => setState(() => _subtipo = val!),
-                  ),
-                ),
+            DropdownButtonFormField<String>(
+              value: _tipoCarta,
+              decoration: const InputDecoration(
+                labelText: 'Turno / Carta', 
+                prefixIcon: Icon(Icons.access_time), // Le agregué ícono para que se vea mejor
+                border: OutlineInputBorder()
+              ),
+              items: const [
+                DropdownMenuItem(value: 'AMBOS', child: Text('Todo el día')),
+                DropdownMenuItem(value: 'MENU', child: Text('Solo Menú (Día)')),
+                DropdownMenuItem(value: 'RESTOBAR', child: Text('Restobar (Noche)')),
               ],
+              onChanged: (val) => setState(() => _tipoCarta = val!),
+            ),
+            
+            const SizedBox(height: 15), // Espacio vertical entre los dos
+
+            DropdownButtonFormField<String>(
+              value: _subtipo,
+              decoration: const InputDecoration(
+                labelText: 'Tipo de Plato', 
+                prefixIcon: Icon(Icons.dinner_dining), // Le agregué ícono
+                border: OutlineInputBorder()
+              ),
+              items: const [
+                DropdownMenuItem(value: 'CARTA', child: Text('Plato a la Carta')),
+                DropdownMenuItem(value: 'ENTRADA', child: Text('Entrada (Menú)')),
+                DropdownMenuItem(value: 'SEGUNDO', child: Text('Segundo (Menú)')),
+              ],
+              onChanged: (val) => setState(() => _subtipo = val!),
             ),
             const SizedBox(height: 15),
             // ---------------------------------------------
@@ -204,7 +206,7 @@ class _FormularioProductoScreenState extends ConsumerState<FormularioProductoScr
               loading: () => const LinearProgressIndicator(),
               error: (e, _) => Text('Error: $e'),
               data: (categorias) => DropdownButtonFormField<int>(
-                value: _categoriaIdSeleccionada,
+                initialValue: _categoriaIdSeleccionada,
                 decoration: const InputDecoration(labelText: 'Categoría', prefixIcon: Icon(Icons.category)),
                 items: categorias.map((cat) => DropdownMenuItem(value: cat.id, child: Text(cat.nombre))).toList(),
                 onChanged: (val) => setState(() => _categoriaIdSeleccionada = val),
@@ -217,7 +219,7 @@ class _FormularioProductoScreenState extends ConsumerState<FormularioProductoScr
               value: _esImprimible,
               onChanged: (val) => setState(() => _esImprimible = val),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 15),
 
             FilledButton.icon(
               onPressed: _isLoading ? null : _guardar,

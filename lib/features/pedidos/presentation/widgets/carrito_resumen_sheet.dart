@@ -116,11 +116,20 @@ class _CarritoResumenSheetState extends ConsumerState<CarritoResumenSheet> {
     }
 
     final totalFinal = subtotalComida + costoTapers;
+    // Obtenemos la altura del teclado en tiempo real
+    final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
+      //padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
+      // Aplicamos padding dinámico ABAJO:
+      // 20 píxeles base + la altura del teclado.
+      // Esto empuja todo el contenido hacia arriba cuando sale el teclado.
+      padding: EdgeInsets.fromLTRB(20, 20, 20, 20 + keyboardHeight),
       // Limitamos la altura para que el teclado no rompa el diseño
-      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.85),
+      //constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.85),
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.9, // Un poco más alto por si acaso
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
