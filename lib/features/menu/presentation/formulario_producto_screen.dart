@@ -163,7 +163,7 @@ class _FormularioProductoScreenState extends ConsumerState<FormularioProductoScr
             
             // --- NUEVOS DROPDOWNS PARA CONFIGURAR MENU ---
             DropdownButtonFormField<String>(
-              value: _tipoCarta,
+              initialValue: _tipoCarta,
               decoration: const InputDecoration(
                 labelText: 'Turno / Carta', 
                 prefixIcon: Icon(Icons.access_time), // Le agregué ícono para que se vea mejor
@@ -180,7 +180,7 @@ class _FormularioProductoScreenState extends ConsumerState<FormularioProductoScr
             const SizedBox(height: 15), // Espacio vertical entre los dos
 
             DropdownButtonFormField<String>(
-              value: _subtipo,
+              initialValue: _subtipo,
               decoration: const InputDecoration(
                 labelText: 'Tipo de Plato', 
                 prefixIcon: Icon(Icons.dinner_dining), // Le agregué ícono
